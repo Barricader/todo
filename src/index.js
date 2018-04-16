@@ -2,21 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+// TODO: check if empty
+
 const TodoForm = ({addTodo}) => {
     // Input tracker
     let input;
 
     return (
         <div>
-            <input ref={node => {input = node;}}/>
-            <button onClick={() => {addTodo(input.value); input.value = '';}}>+</button>
+            <form onSubmit={(e) => {e.preventDefault();}}>
+                <input ref={node => {input = node;}}/>
+                <button onClick={() => {addTodo(input.value); input.value = '';}}>+</button>
+            </form>
         </div>
     );
 };
 
 const Todo = ({todo, remove}) => {
-    // Each item
-    return (<li onClick={() => remove(todo.id)}>{todo.text}</li>);
+    // Each todo item
+    // return (<li onClick={() => remove(todo.id)}>{todo.text}</li>);
+    return (
+    <li>
+        <p>{todo.text}</p><span onClick={() => remove(todo.id)}>X</span>
+    </li>
+    );
 };
 
 const TodoList = ({todos, remove}) => {
@@ -28,11 +37,11 @@ const TodoList = ({todos, remove}) => {
     return (<ul>{todoNode}</ul>);
 };
 
-const Title = () => {
+const Title = ({todoCount}) => {
     return (
       <div>
           <div>
-              <h1>Todo</h1>
+              <h1>Todo ({todoCount})</h1>
           </div>
       </div>
     );
@@ -54,15 +63,25 @@ class TodoApp extends React.Component {
 
         this.state.data.push(todo);
 
-        this.setState({date: this.state.data});
+        this.setState({data: this.state.data});
+    }
+
+    handleRemove(id) {
+        const remainder = this.state.data.filter((todo) => {
+            if (todo.id !== id) {
+                return todo;
+            }
+        });
+
+        this.setState({data: remainder});
     }
 
     render() {
         return (
             <div>
-                <Title/>
-                <TodoForm/>
-                <TodoList todos={[{id: 999, text: 'Text'}]}/>
+                <Title todoCount={this.state.data.length}/>
+                <TodoForm addTodo={this.addTodo.bind(this)}/>
+                <TodoList todos={this.state.data} remove={this.handleRemove.bind(this)}/>
             </div>
         );
     }
