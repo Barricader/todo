@@ -15,13 +15,34 @@ h1 {
     font-size: 40px;
 }
 
-input {
+input[type="text"] {
     width: 480px;
     height: 59px;
     border: 0;
     border-bottom: 1px solid #ccc;
-    padding: 0 24px 0 24px;
+    padding: 0 24px 0 32px;
     font-size: 28px;
+}
+
+input[type="checkbox"] {
+    background-color: #fff;
+    width: 16px;
+    height: 41px;
+    margin: 0;
+}
+
+.checkbox {
+    background-color: #fff;
+    width: 16px;
+    border-bottom: 1px solid #ccc;
+    padding: 0 8px 0 8px;
+    display: flex;
+    align-items: center;
+}
+
+.p-checked {
+    color: #aaa;
+    text-decoration: line-through;
 }
 
 button {
@@ -33,7 +54,10 @@ button {
     margin: 0 0 0 8px;
     padding: 0;
     font-size: 28px;
-    line-height: 60px;
+    display: flex;
+    float: right;
+    justify-content: center;
+    align-items: center;
 }
 
 button:hover {
@@ -44,6 +68,7 @@ button:hover {
 ul {
     list-style: none;
     padding: 0;
+    margin: 24px 0 0 0;
 }
 
 li {
@@ -57,14 +82,11 @@ p {
     margin: 0;
     background-color: #fff;
     border-bottom: 1px solid #ccc;
-    /* padding: 8px; */
-    display: inline-block;
-    max-width: 532px;
+    align-items: center;
+    max-width: 518px;
     overflow-wrap: break-word;
-    height: auto;
-    line-height: 40px;
     width: calc(100% - 64px);
-    padding: 0 8px 0 8px;
+    padding: 6px 8px 6px 0;
 }
 
 span {
